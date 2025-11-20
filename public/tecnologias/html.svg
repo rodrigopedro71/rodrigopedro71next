@@ -1,0 +1,6 @@
+<svg width="80" height="80" viewBox="0 0 128 128">
+  <path fill="#E44D26" d="M19 3l9 99 36 11 36-11 9-99z"/>
+  <path fill="#F16529" d="M64 111l29-8 8-90H64z"/>
+  <path fill="#EBEBEB" d="M64 52H41l1 10h22v10H42l2 21 20 6V52z"/>
+  <path fill="#FFF" d="M64 52v10h21l-2 21-19 6V42h21l1-10H64z"/>
+</svg>

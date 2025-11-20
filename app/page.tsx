@@ -1,8 +1,11 @@
+import MagiaDoJSX from "@/components/MagiaDoJSX"
+
 export default function page() {
   return (
     <div>
-      <h2>Interfaces Moderns</h2>
+      <h2>Interfaces Modernas</h2>
       <p>Bem vindo à minha app em React e Next.js</p>
+      <MagiaDoJSX />
     </div>
   )
 }
