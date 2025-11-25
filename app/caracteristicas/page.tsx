@@ -1,4 +1,5 @@
 import React from 'react'
+import Caracteristica from '@/components/caracteristica'
 
 const caracteristicas = [
         'JSX, sintaxe que mistura HTML e JS.',

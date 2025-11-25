@@ -1,15 +1,25 @@
 import React from 'react'
 import tecnologias from '@/app/data/tecnologias.json';
+import TecnologiaCard from '@/components/TecnologiaCard';
 
-export default function () {
+
+
+export default function page() {
   return (
     <div>
-        <h2>Tecnologias Exploradas</h2>
+      <h2>Tecnologias Exploradas</h2>
 
-        <h2>Características do React e Next.js</h2>
+      <ul>
         {tecnologias.map((tecnologia, i) => {
-            return <li key={i}><strong>{tecnologia.title}</strong> – {tecnologia.image} - {tecnologia.description} - {tecnologia.rating}</li>
+          return <li key={i}>
+            <TecnologiaCard
+              title={tecnologia.title}
+              image={tecnologia.image}
+            />
+          </li>
         })}
-    </div>
+      </ul>
+
+    </div> 
   )
 }

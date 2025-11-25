@@ -1,4 +1,5 @@
 import MagiaDoJSX from "@/components/MagiaDoJSX"
+import { headers } from "next/headers"
 
 export default function page() {
   return (
