@@ -1,16 +1,15 @@
 interface CaracteristicaProps {
-    caracteristica: Array<string>;
+    caracteristica: string[];
 }
 
 export default function Caracteristica({ caracteristica }: CaracteristicaProps) {
-
     return (
         <div>
             <ul>
-                {caracteristica.map((caracteristica, i) => {
-                    return <li key={i}>{caracteristica}</li>
-                })}
+                {caracteristica.map((item, index) => (
+                    <li key={index}>{item}</li>
+                ))}
             </ul>
         </div>
-    )
+    );
 }
