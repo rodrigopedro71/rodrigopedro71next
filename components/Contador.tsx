@@ -20,13 +20,13 @@ export default function Contador() {
 
     return (
         <>
-            <p>Clicaste {count} vezes</p>
+            <p className={`m-2 ${mudaCor()}`}>{count}</p>
 
-            <button
+            <button className="bg-red-500 rounded-lg mx-2"
                 onClick={() => {
-                    const novo = count + 1;
-                    setCount(novo);
-                    setHistory((history) => [...history, novo]);
+                    count < 10 ? setCount(count + 1) : count
+                    setHistory([...history, count])
+
                 }}
             >
                 Clica Aqui Para Aumentar
@@ -34,12 +34,12 @@ export default function Contador() {
 
             <br />
 
-            <button
+            <button className="bg-red-500 rounded-lg mx-2"
                 onClick={() => {
-                    const novo = count - 1;
-                    setCount(novo);
-                    setHistory((history) => [...history, novo]);
+                    count > 0 ? setCount(count - 1) : count
+                    setHistory([...history, count])
                 }}
+                
             >
                 Clica Aqui Para Diminuir
             </button>
@@ -67,4 +67,16 @@ export default function Contador() {
             </p>
         </>
     );
+
+    function mudaCor() {
+        if (count >= 0 && count <= 3) {
+            return "text-red-500"
+        }
+        if (count >= 4 && count <= 7) {
+            return "text-yellow-500"
+        }
+        if (count >= 8 && count <= 10) {
+            return "text-green-500"
+        }
+    }
 }
