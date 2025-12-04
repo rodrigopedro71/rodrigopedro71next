@@ -1,111 +1,63 @@
-"use client";
-
-import { useEffect, useState } from "react";
+'use client'
+import React, { useState, useEffect } from 'react'
 
 export default function Contador() {
-  const [count, setCount] = useState(0);
-  const [history, setHistory] = useState<number[]>([]);
+    const [value, setValue] = useState(0)
+    const [history, setHistory] = useState<number[]>([])
 
-  // Ler do localStorage só no cliente
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const countStored = window.localStorage.getItem("count");
-    const historyStored = window.localStorage.getItem("history");
-
-    if (countStored) {
-      const parsed = parseInt(countStored, 10);
-      if (!Number.isNaN(parsed)) {
-        setCount(parsed);
-      }
-    }
-
-    if (historyStored) {
-      try {
-        const parsedHistory = JSON.parse(historyStored);
-        if (Array.isArray(parsedHistory)) {
-          setHistory(parsedHistory);
+    useEffect(() => {
+        const valueStored = localStorage.getItem('value')
+        if (valueStored) {
+            setValue(parseInt(valueStored))
         }
-      } catch {
-        // se der erro no JSON, ignora
-      }
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem('value', `${value}`)
+    }, [value])
+
+    function mudaCor() {
+        if (value >= 0 && value <= 3) {
+            return "text-red-500"
+        }
+        if (value >= 4 && value <= 7) {
+            return "text-yellow-500"
+        }
+        if (value >= 8 && value <= 10) {
+            return "text-green-500"
+        }
     }
-  }, []);
 
-  // Guardar no localStorage quando count ou history mudam
-  useEffect(() => {
-    if (typeof window === "undefined") return;
+    return (
+        <div>
+            <p className={`m-2 ${mudaCor()}`}>{value}</p>
+            <button className="bg-blue-500 rounded-lg mx-2"
+                onClick={() => {
+                    value < 10 ? setValue(value + 1) : value
+                    setHistory([...history, value])
 
-    window.localStorage.setItem("count", String(count));
-    window.localStorage.setItem("history", JSON.stringify(history));
-  }, [count, history]);
+                }}
+            >
+                Aumenta
+            </button>
+            <button className="bg-blue-500 rounded-lg mx-2"
+                onClick={() => {
+                    value > 0 ? setValue(value - 1) : value
+                    setHistory([...history, value])
+                }}
+                
+            >
+                Diminui</button>
+            <button className="bg-blue-500 rounded-lg"
+                onClick={() => setValue(0)}
+            >
+                Reset</button>
 
-  function mudaCor() {
-    if (count >= 0 && count <= 3) {
-      return "text-red-500";
-    }
-    if (count >= 4 && count <= 7) {
-      return "text-yellow-500";
-    }
-    if (count >= 8 && count <= 10) {
-      return "text-green-500";
-    }
-    return "";
-  }
+            <ul>
+                Histórico:
+                {history.map((c, i) => (<li key={i}>{c}</li>))}
+            </ul>
+        </div>
 
-  return (
-    <>
-      <p className={`m-2 ${mudaCor()}`}>{count}</p>
-
-      <button
-        className="bg-red-500 rounded-lg mx-2"
-        onClick={() => {
-          if (count < 10) {
-            const novo = count + 1;
-            setCount(novo);
-            setHistory([...history, novo]);
-          }
-        }}
-      >
-        Clica Aqui Para Aumentar
-      </button>
-
-      <br />
-
-      <button
-        className="bg-red-500 rounded-lg mx-2"
-        onClick={() => {
-          if (count > 0) {
-            const novo = count - 1;
-            setCount(novo);
-            setHistory([...history, novo]);
-          }
-        }}
-      >
-        Clica Aqui Para Diminuir
-      </button>
-
-      <br />
-
-      <button
-        onClick={() => {
-          const novo = 0;
-          setCount(novo);
-          setHistory([novo]);
-        }}
-      >
-        Reset
-      </button>
-
-      <p>
-        Historico:{" "}
-        {history.map((c, i) => (
-          <span key={i}>
-            {c}
-            {i < history.length - 1 ? "; " : ""}
-          </span>
-        ))}
-      </p>
-    </>
-  );
+    )
 }
