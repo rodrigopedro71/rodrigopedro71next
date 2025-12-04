@@ -1,11 +1,16 @@
+import ContadorPersonalizado from "../components/contadorPersonalizado";
+
 interface TecnologiaDetailsCardProps {
   description: string;
 }
 
 export default function TecnologiaDetailsCard({ description }: TecnologiaDetailsCardProps) {
   return (
-    <div className="bg-violet-900 text-violet-100 p-4 rounded-lg">
+    <div className="flex flex-col gap-2 p-4 rounded-lg bg-violet-700 text-white">
       <p>{description}</p>
+
+      {/* Likes por tecnologia */}
+      <ContadorPersonalizado title={description} />
     </div>
   );
 }
