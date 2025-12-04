@@ -1,63 +1,62 @@
-'use client'
-import React, { useState, useEffect } from 'react'
+"use client";
 
-export default function Contador() {
-    const [value, setValue] = useState(0)
-    const [history, setHistory] = useState<number[]>([])
+import { useEffect, useState } from "react";
 
-    useEffect(() => {
-        const valueStored = localStorage.getItem('value')
-        if (valueStored) {
-            setValue(parseInt(valueStored))
-        }
-    }, [])
+export default function ExemploLocalStorage() {
+  const [value, setValue] = useState(0);
+  const [history, setHistory] = useState<number[]>([]);
 
-    useEffect(() => {
-        localStorage.setItem('value', `${value}`)
-    }, [value])
+  // Ler localStorage só no cliente
+  useEffect(() => {
+    if (typeof window === "undefined") return;
 
-    function mudaCor() {
-        if (value >= 0 && value <= 3) {
-            return "text-red-500"
-        }
-        if (value >= 4 && value <= 7) {
-            return "text-yellow-500"
-        }
-        if (value >= 8 && value <= 10) {
-            return "text-green-500"
-        }
+    const valueStored = localStorage.getItem("value");
+    const historyStored = localStorage.getItem("history");
+
+    if (valueStored) {
+      setValue(parseInt(valueStored, 10));
     }
 
-    return (
-        <div>
-            <p className={`m-2 ${mudaCor()}`}>{value}</p>
-            <button className="bg-blue-500 rounded-lg mx-2"
-                onClick={() => {
-                    value < 10 ? setValue(value + 1) : value
-                    setHistory([...history, value])
+    if (historyStored) {
+      try {
+        const parsed = JSON.parse(historyStored);
+        if (Array.isArray(parsed)) {
+          setHistory(parsed);
+        }
+      } catch {
+        // Se o JSON estiver corrompido, ignora
+      }
+    }
+  }, []);
 
-                }}
-            >
-                Aumenta
-            </button>
-            <button className="bg-blue-500 rounded-lg mx-2"
-                onClick={() => {
-                    value > 0 ? setValue(value - 1) : value
-                    setHistory([...history, value])
-                }}
-                
-            >
-                Diminui</button>
-            <button className="bg-blue-500 rounded-lg"
-                onClick={() => setValue(0)}
-            >
-                Reset</button>
+  // Guardar automaticamente sempre que mudar
+  useEffect(() => {
+    if (typeof window === "undefined") return;
 
-            <ul>
-                Histórico:
-                {history.map((c, i) => (<li key={i}>{c}</li>))}
-            </ul>
-        </div>
+    localStorage.setItem("value", String(value));
+    localStorage.setItem("history", JSON.stringify(history));
+  }, [value, history]);
 
-    )
+  return (
+    <div>
+      <p>Valor: {value}</p>
+
+      <button
+        onClick={() => {
+          const novo = value + 1;
+          setValue(novo);
+          setHistory([...history, novo]);
+        }}
+      >
+        Incrementar
+      </button>
+
+      <p>
+        Histórico:{" "}
+        {history.map((v, i) => (
+          <span key={i}>{v}{i < history.length - 1 ? ", " : ""}</span>
+        ))}
+      </p>
+    </div>
+  );
 }
