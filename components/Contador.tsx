@@ -6,7 +6,7 @@ export default function Contador() {
   const [count, setCount] = useState(0);
   const [history, setHistory] = useState<number[]>([]);
 
-  // Carregar valores do localStorage só no cliente
+  // Ler do localStorage só no cliente
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -14,7 +14,7 @@ export default function Contador() {
     const historyStored = window.localStorage.getItem("history");
 
     if (countStored) {
-      const parsed = parseInt(countStored);
+      const parsed = parseInt(countStored, 10);
       if (!Number.isNaN(parsed)) {
         setCount(parsed);
       }
@@ -32,7 +32,7 @@ export default function Contador() {
     }
   }, []);
 
-  // Guardar sempre que count ou history mudam
+  // Guardar no localStorage quando count ou history mudam
   useEffect(() => {
     if (typeof window === "undefined") return;
 
