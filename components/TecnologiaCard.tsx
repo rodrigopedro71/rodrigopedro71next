@@ -1,16 +1,35 @@
+import Image from "next/image";
+import Link from "next/link";
 import ContadorPersonalizado from "../components/contadorPersonalizado";
 
-interface TecnologiaDetailsCardProps {
-  description: string;
+export interface TecnologiaCardProps {
+  title: string;
+  image: string;
 }
 
-export default function TecnologiaDetailsCard({ description }: TecnologiaDetailsCardProps) {
+export default function TecnologiaCard({ title, image }: TecnologiaCardProps) {
   return (
-    <div className="flex flex-col gap-2 p-4 rounded-lg bg-violet-700 text-white">
-      <p>{description}</p>
+    <div className="bg-violet-800 text-violet-200 m-2 p-4 border-2 border-violet-500 rounded-lg 
+                    flex flex-col items-center w-full max-w-xs mx-auto gap-3 shadow-md">
 
-      {/* Se quiseres mostrar likes por tecnologia */}
-      <ContadorPersonalizado title={description} />
+      <p className="font-semibold text-lg">{title}</p>
+
+      <Image
+        className="mx-auto"
+        src={`/tecnologias/${image}`}
+        alt={title}
+        width={60}
+        height={60}
+      />
+
+      <Link
+        href="/tecnologia"
+        className="text-purple-300 hover:text-purple-400 underline"
+      >
+        Clica aqui para ver detalhadamente
+      </Link>
+
+      <ContadorPersonalizado title={title} />
     </div>
   );
 }
