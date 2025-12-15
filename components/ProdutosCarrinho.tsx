@@ -35,7 +35,7 @@ export default function ProdutosCarrinho(produto: Produto) {
 
             <button
                 onClick={goToProduto}
-                className="bg-emerald-600 hover:bg-emerald-700 p-2 rounded-2xl text-white"
+                className="bg-purple-600 hover:bg-purple-700 p-2 rounded-2xl text-white"
             >
                 +Info
             </button>
