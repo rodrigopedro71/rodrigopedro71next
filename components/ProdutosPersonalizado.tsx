@@ -7,37 +7,43 @@ import { Produto } from '@/models/interfaces'
 export default function ProdutosPersonalizado(produto: Produto) {
 
     const { title, price, description, category, image, rating } = produto
-    const navigation = useRouter()
+    const router = useRouter()
 
-    const goBack = () => {
-        navigation.push('/produtos')
+    const voltar = () => {
+        router.push('/produtos')
     }
 
     return (
-        <section>
-            <h2>{title}</h2>
+        <article className="p-5 flex flex-col gap-3">
+            <header>
+                <h1 className="text-2xl font-bold">{title}</h1>
+                <p className="text-sm opacity-80">{category}</p>
+            </header>
 
-            <p>Categoria: {category}</p>
+            <div className="flex justify-center">
+                <Image
+                    src={`https://deisishop.pythonanywhere.com${image}`}
+                    alt={title}
+                    width={280}
+                    height={280}
+                />
+            </div>
 
-            <Image
-                src={`https://deisishop.pythonanywhere.com${image}`}
-                alt={image}
-                width={250}
-                height={250}
-            />
+            <p className="text-lg font-semibold">€ {price}</p>
 
-            <p>Preço: {price} €</p>
-            <p>{description}</p>
+            <p className="leading-relaxed">{description}</p>
 
-            <p>Rating: {rating.rate}</p>
-            <p>Total avaliações: {rating.count}</p>
+            <div className="text-sm opacity-90">
+                <p>Avaliação: {rating.rate}</p>
+                <p>Nº avaliações: {rating.count}</p>
+            </div>
 
             <button
-                onClick={goBack}
-                className="bg-purple-600 hover:bg-purple-700 p-2 rounded-2xl text-white"
+                onClick={voltar}
+                className="mt-2 bg-purple-600 hover:bg-purple-700 p-2 rounded-2xl text-white"
             >
-                Voltar atrás
+                ⬅ Voltar
             </button>
-        </section>
+        </article>
     )
 }
