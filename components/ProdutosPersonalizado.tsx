@@ -4,20 +4,20 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { Produto } from '@/models/interfaces'
 
-export default function ProdutosCard(produto: Produto) {
+export default function ProdutosPersonalizado(produto: Produto) {
 
-    const { id, title, price, image } = produto
+    const { title, price, description, category, image, rating } = produto
     const navigation = useRouter()
 
-    const goToDetails = () => {
-        navigation.push(`/produtos/${id}`)
+    const goBack = () => {
+        navigation.push('/produtos')
     }
 
     return (
-        <article className="p-5">
+        <section>
             <h2>{title}</h2>
 
-            <p>Preço: {price} €</p>
+            <p>Categoria: {category}</p>
 
             <Image
                 src={`https://deisishop.pythonanywhere.com${image}`}
@@ -26,12 +26,18 @@ export default function ProdutosCard(produto: Produto) {
                 height={250}
             />
 
+            <p>Preço: {price} €</p>
+            <p>{description}</p>
+
+            <p>Rating: {rating.rate}</p>
+            <p>Total avaliações: {rating.count}</p>
+
             <button
-                onClick={goToDetails}
+                onClick={goBack}
                 className="bg-purple-600 hover:bg-purple-700 p-2 rounded-2xl text-white"
             >
-                +Info
+                Voltar atrás
             </button>
-        </article>
+        </section>
     )
 }
