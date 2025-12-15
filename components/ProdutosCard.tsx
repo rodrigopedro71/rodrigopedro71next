@@ -30,7 +30,7 @@ export default function ProdutosCard(produto: Produto) {
                 onClick={goToDetails}
                 className="bg-purple-600 hover:bg-purple-700 p-2 rounded-2xl text-white"
             >
-                +Info
+                Mais Informação
             </button>
         </article>
     )
