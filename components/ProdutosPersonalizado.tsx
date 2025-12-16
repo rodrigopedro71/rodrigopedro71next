@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation'
 import { Produto } from '@/models/interfaces'
 
@@ -12,6 +13,23 @@ export default function ProdutosPersonalizado(produto: Produto) {
     const voltar = () => {
         router.push('/produtos')
     }
+
+    
+    const [favorito, setFavorito] = useState(false)
+
+    useEffect(() => {
+    const fav = localStorage.getItem('favorito')
+    if (fav !== null) {
+        setFavorito(JSON.parse(fav))
+        console.log('valor convertido:', favorito)
+    }
+    }, [])
+
+    useEffect(() => {
+    localStorage.setItem('favorito', JSON.stringify(favorito))
+    console.log('valor:', favorito)
+    
+    }, [favorito])
 
     return (
         <article className="p-5 flex flex-col gap-3">
@@ -36,6 +54,11 @@ export default function ProdutosPersonalizado(produto: Produto) {
             <div className="text-sm opacity-90">
                 <p>Avaliação: {rating.rate}</p>
                 <p>Nº avaliações: {rating.count}</p>
+                
+                <button onClick={() => setFavorito(!favorito)}>
+                {favorito ? '❤' : '🤍'}
+                </button>
+
             </div>
 
             <button
@@ -44,6 +67,8 @@ export default function ProdutosPersonalizado(produto: Produto) {
             >
                 ⬅ Voltar
             </button>
+
+            
         </article>
     )
 }

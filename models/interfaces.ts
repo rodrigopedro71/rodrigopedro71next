@@ -11,6 +11,13 @@ export interface Produto {
     }
 }
 
+export interface paises {
+    nome: string;
+    area: number;
+    populacao: number;
+    
+    }
+
 export interface Categoria {
     name: string;
 }
