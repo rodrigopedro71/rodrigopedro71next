@@ -63,8 +63,8 @@ export default function Page() {
                 value={ordenacao}
                 onChange={e => setOrdenacao(e.target.value)}
             >
-                <option value="popDecrescente">População (Mais alto)</option>
-                <option value="popCrescente">População (Mais baixo)</option>
+                <option value="popDecrescente">População (Mais alta)</option>
+                <option value="popCrescente">População (Mais baixa)</option>
             </select>
 
             {listaFiltrada.map((pais, index) => (
