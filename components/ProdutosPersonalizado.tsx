@@ -17,20 +17,6 @@ export default function ProdutosPersonalizado(produto: Produto) {
     
     const [favorito, setFavorito] = useState(false)
 
-    useEffect(() => {
-    const fav = localStorage.getItem('favorito')
-    if (fav !== null) {
-        setFavorito(JSON.parse(fav))
-        console.log('valor convertido:', favorito)
-    }
-    }, [])
-
-    useEffect(() => {
-    localStorage.setItem('favorito', JSON.stringify(favorito))
-    console.log('valor:', favorito)
-    
-    }, [favorito])
-
     return (
         <article className="p-5 flex flex-col gap-3">
             <header>
@@ -51,15 +37,7 @@ export default function ProdutosPersonalizado(produto: Produto) {
 
             <p className="leading-relaxed">{description}</p>
 
-            <div className="text-sm opacity-90">
-                <p>Avaliação: {rating.rate}</p>
-                <p>Nº avaliações: {rating.count}</p>
-                
-                <button onClick={() => setFavorito(!favorito)}>
-                {favorito ? '❤' : '🤍'}
-                </button>
-
-            </div>
+            
 
             <button
                 onClick={voltar}

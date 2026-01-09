@@ -16,17 +16,6 @@ export default function ProdutosCard(produto: Produto) {
 
     const [favorito, setFavorito] = useState(false)
 
-    useEffect(() => {
-    const f = localStorage.getItem('favorito')
-    if (f !== null) {
-        setFavorito(JSON.parse(f))
-    }
-    }, [])
-
-    useEffect(() => {
-    localStorage.setItem('favorito', JSON.stringify(favorito))
-    }, [favorito])
-
 
 
     return (
@@ -48,10 +37,7 @@ export default function ProdutosCard(produto: Produto) {
             >
                 Mais Informação
             </button>
-
-            <button onClick={() => setFavorito(!favorito)}>
-            {favorito ? '❤' : '🤍'}
-            </button>
+            
         </article>
     )
 }
